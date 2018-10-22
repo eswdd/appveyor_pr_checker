@@ -1,7 +1,7 @@
 # appveyor.yml
 build: off
 
-clone_folder: /usr/go/src/github.com/$username/$project
+clone_folder: /usr/go/src/github.com/eswdd/appveyor_pr_checker
 
 environment:
   GOPATH: /usr/go/
