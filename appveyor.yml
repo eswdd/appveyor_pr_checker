@@ -1,6 +1,9 @@
 # appveyor.yml
 build: off
 
+image:
+- Ubuntu
+
 clone_folder: /usr/go/src/github.com/eswdd/appveyor_pr_checker
 
 environment:
