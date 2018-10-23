@@ -34,8 +34,13 @@ func main() {
 	if whitelistOpts.ReportFile != "" {
 		writeLines(output, whitelistOpts.ReportFile)
 	} else {
+		haveOutput := false
 		for _, line := range output {
 			log.Print(line)
+			haveOutput = true
+		}
+		if haveOutput {
+			os.Exit(1)
 		}
 	}
 }
