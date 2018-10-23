@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/adam-hanna/arrayOperations"
+	"github.com/aryann/difflib"
 	"github.com/jessevdk/go-flags"
 	"log"
 	"os"
@@ -67,13 +67,16 @@ func whitelistCheck(masterPath string, updatedPath string, logFile string) []str
 		log.Fatalf("Error reading updated whitelist file: %s\n", err)
 	}
 
-	diff, ok := arrayOperations.Difference(masterLines, updatedLines)
-	if !ok {
-		log.Printf("No difference between whitelist files")
-		return output
+	var uniqueLines []string
+	var orderedUpdatedLines []string
+	diff := difflib.Diff(masterLines, updatedLines)
+	for _, diffEntry := range diff {
+		if diffEntry.Delta == difflib.RightOnly {
+			//log.Printf("Found only in updated: %s", diffEntry.Payload)
+			uniqueLines = append(uniqueLines, diffEntry.Payload)
+			orderedUpdatedLines = append(orderedUpdatedLines, diffEntry.Payload)
+		}
 	}
-	uniqueLines := diff.Interface().([]string)
-	sort.Slice(uniqueLines, caseInsensitiveSort(uniqueLines))
 
 	for lineNum, line := range uniqueLines {
 		if strings.HasPrefix(strings.ToLower(line), "bad") {
@@ -81,8 +84,6 @@ func whitelistCheck(masterPath string, updatedPath string, logFile string) []str
 		}
 	}
 
-	orderedUpdatedLines := make([]string, len(updatedLines))
-	copy(updatedLines, orderedUpdatedLines)
 	sort.Slice(orderedUpdatedLines, caseInsensitiveSort(orderedUpdatedLines))
 
 	for lineNum := range uniqueLines {
