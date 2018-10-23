@@ -12,9 +12,9 @@ environment:
 stack: go 1.10
 
 install:
-- echo %PATH%
-- echo %GOPATH%
-- set PATH=%GOPATH%\bin;c:\go\bin;%PATH%
+- echo $PATH
+- echo $GOPATH
+- export PATH=$GOPATH%/bin:$PATH
 - go version
 - go env
 - go get -v -t ./...
