@@ -1,18 +1,17 @@
-# appveyor.yml
 build: off
 
 image:
 - Ubuntu
 
-clone_folder: /home/appveyor/.gvm/pkgsets/go1.10.4/global/src/github.com/eswdd/appveyor_pr_checker
+clone_folder: /home/appveyor/gopath/src/github.com/eswdd/appveyor_pr_checker
 
-#environment:
-  #GOPATH: /usr/go/
+environment:
+  GOPATH: /home/appveyor/gopath
 
-stack: go 1.10
+stack: go 1.11
 
 install:
-- export GOPATH=/home/appveyor/.gvm/pkgsets/go1.10.4/global
+- export GOPATH=/home/appveyor/gopath
 - echo $PATH
 - echo $GOPATH
 - export PATH=$GOPATH%/bin:$PATH
