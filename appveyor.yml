@@ -11,6 +11,14 @@ environment:
 
 stack: go 1.10
 
+install:
+- echo %PATH%
+- echo %GOPATH%
+- set PATH=%GOPATH%\bin;c:\go\bin;%PATH%
+- go version
+- go env
+- go get -v -t ./...
+
 before_test:
   - go vet ./...
 
