@@ -15,6 +15,7 @@ install:
 - echo $PATH
 - echo $GOPATH
 - export PATH=$GOPATH%/bin:$PATH
+- printenv
 - go version
 - go env
 - go get -v -t ./...
