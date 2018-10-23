@@ -20,6 +20,8 @@ var whitelistOpts struct {
 var parser = flags.NewParser(&whitelistOpts, flags.Default)
 
 func main() {
+	log.SetOutput(os.Stderr)
+
 	_, err := parser.Parse()
 
 	if flagsErr, ok := err.(*flags.Error); ok && flagsErr.Type == flags.ErrHelp {
