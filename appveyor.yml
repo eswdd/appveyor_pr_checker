@@ -4,15 +4,15 @@ build: off
 image:
 - Ubuntu
 
-clone_folder: /usr/go/src/github.com/eswdd/appveyor_pr_checker
+clone_folder: /home/appveyor/.gvm/pkgsets/go1.10.4/global/src/github.com/eswdd/appveyor_pr_checker
 
 environment:
-  GOPATH: /usr/go/
+  #GOPATH: /usr/go/
 
 stack: go 1.10
 
 install:
-- export GOPATH=/usr/go
+- export GOPATH=/home/appveyor/.gvm/pkgsets/go1.10.4/global
 - echo $PATH
 - echo $GOPATH
 - export PATH=$GOPATH%/bin:$PATH
