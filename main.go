@@ -32,16 +32,20 @@ func main() {
 
 	output := whitelistCheck(whitelistOpts.MasterWhitelistPath, whitelistOpts.UpdatedWhitelistPath, whitelistOpts.ReportFile)
 	if whitelistOpts.ReportFile != "" {
-		writeLines(output, whitelistOpts.ReportFile)
-	} else {
-		haveOutput := false
-		for _, line := range output {
-			log.Print(line)
-			haveOutput = true
-		}
-		if haveOutput {
-			os.Exit(1)
-		}
+		var report []string
+		report = append(report, "Report line 1")
+		report = append(report, "Report line 2")
+		report = append(report, "Report line 3")
+		writeLines(report, whitelistOpts.ReportFile)
+	}
+
+	haveOutput := false
+	for _, line := range output {
+		log.Print(line)
+		haveOutput = true
+	}
+	if haveOutput {
+		os.Exit(1)
 	}
 }
 
@@ -71,7 +75,7 @@ func whitelistCheck(masterPath string, updatedPath string, logFile string) []str
 
 	for lineNum, line := range uniqueLines {
 		if strings.HasPrefix(strings.ToLower(line), "bad") {
-			output = append(output, fmt.Sprintf("Bad data at line %d: %s", lineNum+ 1,line))
+			output = append(output, fmt.Sprintf("Bad data at line %d: '%s'", lineNum+ 1,line))
 		}
 	}
 
@@ -81,7 +85,7 @@ func whitelistCheck(masterPath string, updatedPath string, logFile string) []str
 
 	for lineNum := range uniqueLines {
 		if uniqueLines[lineNum] != orderedUpdatedLines[lineNum] {
-			output = append(output, fmt.Sprintf("Unordered line line %d: Expected %s to be next", lineNum+ 1,orderedUpdatedLines[lineNum]))
+			output = append(output, fmt.Sprintf("Unordered line %d: Expected '%s' to be next", lineNum+1, orderedUpdatedLines[lineNum]))
 		}
 	}
 
