@@ -12,6 +12,7 @@ environment:
 stack: go 1.10
 
 install:
+- export GOPATH=/usr/go
 - echo $PATH
 - echo $GOPATH
 - export PATH=$GOPATH%/bin:$PATH
